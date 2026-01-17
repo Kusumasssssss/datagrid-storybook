@@ -1,79 +1,53 @@
+import { useState } from "react";
 import type { DataGridProps } from "./types";
 
 export function DataGrid({ columns, rows = [] }: DataGridProps) {
+  const [selectedRow, setSelectedRow] = useState<number | null>(null);
+
   return (
-    <div
-      role="table"
+    <table
+      border={1}
+      cellPadding={8}
+      cellSpacing={0}
       style={{
         width: "100%",
-        fontFamily: "Arial, sans-serif",
-        border: "1px solid #ddd",
+        borderCollapse: "collapse",
+        fontFamily: "Arial",
       }}
     >
-      {/* Header row */}
-      <div
-        role="row"
-        style={{
-          display: "flex",
-          background: "#f3f3f3",
-          fontWeight: "bold",
-          borderBottom: "2px solid #ccc",
-        }}
-      >
-        {columns.map((col) => (
-          <div
-            key={col.id}
-            role="columnheader"
+      <thead>
+        <tr>
+          {columns.map((col) => (
+            <th key={col.id}>{col.title}</th>
+          ))}
+        </tr>
+      </thead>
+
+      <tbody>
+        {rows.length === 0 && (
+          <tr>
+            <td colSpan={columns.length} style={{ textAlign: "center" }}>
+              No data available
+            </td>
+          </tr>
+        )}
+
+        {rows.map((row, index) => (
+          <tr
+            key={row.id ?? index}
+            onClick={() => setSelectedRow(index)}
             style={{
-              width: col.width,
-              padding: "8px",
-              borderRight: "1px solid #ddd",
+              backgroundColor:
+                selectedRow === index ? "#cce5ff" : "transparent",
+              cursor: "pointer",
             }}
           >
-            {col.title}
-          </div>
+            {columns.map((col) => (
+              <td key={col.id}>{row.data?.[col.id] ?? "-"}</td>
+            ))}
+          </tr>
         ))}
-      </div>
-
-      {/* Empty state */}
-      {rows.length === 0 && (
-        <div
-          style={{
-            padding: "12px",
-            textAlign: "center",
-            color: "#666",
-            borderBottom: "1px solid #eee",
-          }}
-        >
-          No data available
-        </div>
-      )}
-
-      {/* Data rows */}
-      {rows.map((row, index) => (
-        <div
-          key={row.id ?? index}
-          role="row"
-          style={{
-            display: "flex",
-            borderBottom: "1px solid #eee",
-          }}
-        >
-          {columns.map((col) => (
-            <div
-              key={col.id}
-              role="cell"
-              style={{
-                width: col.width,
-                padding: "8px",
-                borderRight: "1px solid #eee",
-              }}
-            >
-              {row.data?.[col.id] ?? "-"}
-            </div>
-          ))}
-        </div>
-      ))}
-    </div>
+      </tbody>
+    </table>
   );
 }

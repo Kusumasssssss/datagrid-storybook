@@ -8,6 +8,12 @@ The component is developed and tested using Storybook.
 - Empty state handling
 - Reusable and configurable
 - Storybook-driven development
+## Storybook (Chromatic)
+
+This project uses Storybook and Chromatic for UI development and visual regression testing.
+
+🔗 Live Storybook (Chromatic):
+https://www.chromatic.com/library?appId=696b97e11e2d6b5be9763dcc
 
 ## Props
 
