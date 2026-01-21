@@ -18,7 +18,6 @@ const meta: Meta<typeof DataGrid> = {
 };
 
 export default meta;
-
 type Story = StoryObj<typeof DataGrid>;
 
 export const Basic: Story = {
@@ -27,9 +26,23 @@ export const Basic: Story = {
     rows,
   },
 };
-export const EmptyData = {
+
+export const EmptyData: Story = {
   args: {
     columns,
     rows: [],
+  },
+};
+
+export const LargeData: Story = {
+  args: {
+    columns,
+    rows: Array.from({ length: 10000 }, (_, i) => ({
+      id: `${i + 1}`,
+      data: {
+        name: `Employee ${i + 1}`,
+        role: i % 2 === 0 ? "Developer" : "Tester",
+      },
+    })),
   },
 };
