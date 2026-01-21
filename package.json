@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "chromatic": "chromatic --project-token=chpt_4c20c2318c57d5",
+    "chromatic": "chromatic --project-token=chpt_696b97e11e2d6b5be9763dcc",
+
     "test": "vitest"
   },
 
